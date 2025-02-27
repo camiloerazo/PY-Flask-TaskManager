@@ -1,0 +1,155 @@
+{
+    "users": [
+        {
+            "username": "pepito",
+            "password": "123",
+            "email": "juan@gmail.com",
+            "tasks": [
+                {
+                    "id": 1,
+                    "description": "play basktetball",
+                    "status": "done",
+                    "begin": "11-02-25 08:24:39",
+                    "expires": "3222-12-31"
+                },
+                {
+                    "id": 2,
+                    "description": "asdfsdaf",
+                    "status": "pending",
+                    "begin": "11-02-25 08:26:56",
+                    "expires": "2025-02-11"
+                },
+                {
+                    "id": 3,
+                    "description": "tarea de prueba",
+                    "status": "done",
+                    "begin": "11-02-25 08:31:44",
+                    "expires": "20-02-2025"
+                },
+                {
+                    "id": 4,
+                    "description": "tarea de prueba 2",
+                    "status": "done",
+                    "begin": "11-02-25 08:52:52",
+                    "expires": "11-02-2025"
+                },
+                {
+                    "id": 5,
+                    "description": "asdfsadf",
+                    "status": "done",
+                    "begin": "11-02-25 09:20:25",
+                    "expires": "11-02-2025"
+                },
+                {
+                    "id": 6,
+                    "description": "hola mundo cruel",
+                    "status": "done",
+                    "begin": "11-02-25 09:53:59",
+                    "expires": "31-12-23123"
+                },
+                {
+                    "id": 7,
+                    "description": "comer peperoni",
+                    "status": "done",
+                    "begin": "12-02-25 09:00:17",
+                    "expires": "25-02-2025"
+                },
+                {
+                    "id": 8,
+                    "description": "perrito loco",
+                    "status": "pending",
+                    "begin": "12-02-25 14:44:46",
+                    "expires": "02-02-2003"
+                },
+                {
+                    "id": 9,
+                    "description": "hola mundo",
+                    "status": "pending",
+                    "begin": "12-02-25 15:54:31",
+                    "expires": "18-02-2025"
+                }
+            ]
+        },
+        {
+            "username": "juanito",
+            "password": "123",
+            "email": "juan@gmail.com",
+            "tasks": []
+        },
+        {
+            "username": "alfonso",
+            "password": "123",
+            "email": "a@gmail.com",
+            "tasks": []
+        },
+        {
+            "username": "alfonso",
+            "password": "123",
+            "email": "a@gmail.com",
+            "tasks": []
+        },
+        {
+            "username": "pepito2",
+            "password": "123",
+            "email": "juancamiloerazo82@gmail.com",
+            "tasks": [
+                {
+                    "id": 1,
+                    "description": "hola",
+                    "status": "pending",
+                    "begin": "14-02-25 13:04:53",
+                    "expires": "16-02-2025"
+                }
+            ]
+        },
+        {
+            "username": "pepito3",
+            "password": "cam",
+            "email": "juancamiloerazo82@gmail.com",
+            "tasks": [
+                {
+                    "id": 1,
+                    "description": "ir a trabajar",
+                    "status": "pending",
+                    "begin": "14-02-25 13:25:24",
+                    "expires": "22-02-2025"
+                },
+                {
+                    "id": 2,
+                    "description": "correr",
+                    "status": "pending",
+                    "begin": "14-02-25 13:27:35",
+                    "expires": "11-02-2025"
+                },
+                {
+                    "id": 3,
+                    "description": "comer hamburguesa",
+                    "status": "pending",
+                    "begin": "14-02-25 13:41:44",
+                    "expires": "15-02-2025"
+                },
+                {
+                    "id": 4,
+                    "description": "tarea 2 ",
+                    "status": "done",
+                    "begin": "14-02-25 13:47:15",
+                    "expires": "15-02-2025"
+                }
+            ]
+        },
+        {
+            "username": "andres",
+            "password": "123",
+            "email": "benavidesandres217@gmail.com",
+            "tasks": [
+                {
+                    "id": 1,
+                    "description": "dsfsd",
+                    "status": "done",
+                    "begin": "14-02-25 14:08:50",
+                    "expires": "11-02-2025"
+                }
+            ]
+        }
+    ]
+}

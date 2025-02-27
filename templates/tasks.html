@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .form-container .card {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .form-container .card:last-child {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Task Manager</h2>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="taskTableBody">
+            <!-- Tasks will be inserted here dynamically -->
+             {% for task in tasks %}
+
+             <tr>
+                <td>{{ task["id"] }}</td>
+                <td>{{ task["description"] }}</td>
+                <td {% if task["status"] == "pending" %} 
+                    style = "color: rgb(177, 58, 58);" 
+                    {% else %}
+                    style="color: green;"
+                    {% endif %}
+                >{{ task["status"]}} 
+                    <form action="/manager" method="POST">
+                        <input type="hidden" name="change_status" value= {{ task["id"] }}>
+                        <button type="submit">Change status</button>
+                    </form>
+
+                </td>
+                <td>{{ task["begin"] }}</td>
+                <td>{{ task["expires"] }}</td>
+                <td>
+                    <form action="/manager" method="POST">
+                        <input type="hidden" name="task_id_delete" value="{{ task["id"]}}">
+                        <button name = "delete" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="form-container">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Create Task</h3>
+                <form action="/manager" method = "POST" id="createTaskForm" class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="createDescription" class="sr-only">Description</label>
+                        <input name="description" type="text" class="form-control" id="description" placeholder="Description" required>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="createEndDate" class="sr-only">Expiring Date</label>
+                        <input name = "date" type="date" class="form-control" id="expirationDate" required>
+                    </div>
+                    <button name="createTaskButton" value = "createTaskPressed" type="submit" class="btn btn-success mb-2">Create Task</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Edit Task</h3>
+                <form action="/manager"  method = "POST" id="editTaskForm" class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="editTaskId" class="sr-only">Task ID</label>
+                        <input name= "taskId" type="text" class="form-control" id="editTaskId" placeholder="Task ID" required>
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="editDescription" class="sr-only">Description</label>
+                        <input name ="taskdesc" type="text" class="form-control" id="editDescription" placeholder="Description" >
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="editEndDate" class="sr-only">Expiring Date</label>
+                        <input name ="edate" type="date" class="form-control" id="editEndDate">
+                    </div>
+                    <button name = "editTask" value = "editTaskPressed" type="submit" class="btn btn-primary mb-2">Edit Task</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /*
+        // Example task data (replace this with your backend API data)
+        const tasks = [
+            { description: "Complete project report", beginDate: "2025-02-10", endDate: "2025-02-15" },
+            { description: "Prepare for team meeting", beginDate: "2025-02-12", endDate: "2025-02-12" },
+            { description: "Fix login issue", beginDate: "2025-02-08", endDate: "2025-02-10" }
+        ];
+
+        function loadTasks() {
+            const tableBody = document.getElementById("taskTableBody");
+            tableBody.innerHTML = "";
+
+            tasks.forEach((task, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${task.description}</td>
+                    <td>${task.beginDate}</td>
+                    <td>${task.endDate}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Load tasks when the page loads
+        window.onload = loadTasks;
+
+        // Handle create task form submission
+        document.getElementById("createTaskForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const description = document.getElementById("createDescription").value;
+            const endDate = document.getElementById("createEndDate").value;
+            const beginDate = new Date().toISOString().split('T')[0]; // Set begin date to today
+            tasks.push({ description, beginDate, endDate });
+            loadTasks();
+        });
+
+        // Handle edit task form submission
+        document.getElementById("editTaskForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const taskId = parseInt(document.getElementById("editTaskId").value);
+            const description = document.getElementById("editDescription").value;
+            const endDate = document.getElementById("editEndDate").value;
+            if (taskId >= 0 && taskId < tasks.length) {
+                tasks[taskId].description = description;
+                tasks[taskId].endDate = endDate;
+                loadTasks();
+            } else {
+                alert("Invalid Task ID");
+            }
+        });*/
+    </script>
+
+</body>
+</html>
